@@ -1,5 +1,7 @@
 package com.adopcion.controller;
 
+import com.adopcion.dto.SolicitudRequestDTO;
+import com.adopcion.dto.SolicitudResponseDTO;
 import com.adopcion.model.SolicitudAdopcion;
 import com.adopcion.service.SolicitudAdopcionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,48 +13,50 @@ import java.util.List;
 @RequestMapping("/api/solicitudes")
 public class SolicitudAdopcionController {
 
-    @Autowired
-    private SolicitudAdopcionService solicitudAdopcionService;
+    @Autowired private SolicitudAdopcionService solicitudService;
 
     @GetMapping
-    public ResponseEntity<List<SolicitudAdopcion>> getAll() {
-        return ResponseEntity.ok(solicitudAdopcionService.findAll());
+    public ResponseEntity<List<SolicitudResponseDTO>> getAll() {
+        return ResponseEntity.ok(solicitudService.findAll());
     }
 
     @GetMapping("/usuario/{idUsuario}")
-    public ResponseEntity<List<SolicitudAdopcion>> getByUsuario(@PathVariable Integer idUsuario) {
-        return ResponseEntity.ok(solicitudAdopcionService.findByUsuario(idUsuario));
+    public ResponseEntity<List<SolicitudResponseDTO>> getByUsuario(@PathVariable Integer idUsuario) {
+        return ResponseEntity.ok(solicitudService.findByUsuario(idUsuario));
     }
 
     @GetMapping("/mascota/{idMascota}")
-    public ResponseEntity<List<SolicitudAdopcion>> getByMascota(@PathVariable Integer idMascota) {
-        return ResponseEntity.ok(solicitudAdopcionService.findByMascota(idMascota));
+    public ResponseEntity<List<SolicitudResponseDTO>> getByMascota(@PathVariable Integer idMascota) {
+        return ResponseEntity.ok(solicitudService.findByMascota(idMascota));
+    }
+
+    @GetMapping("/donador/{idDonador}")
+    public ResponseEntity<List<SolicitudResponseDTO>> getByDonador(@PathVariable Integer idDonador) {
+        return ResponseEntity.ok(solicitudService.findByDonador(idDonador));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SolicitudAdopcion> getById(@PathVariable Integer id) {
-        return ResponseEntity.ok(solicitudAdopcionService.findById(id));
+    public ResponseEntity<SolicitudResponseDTO> getById(@PathVariable Integer id) {
+        return ResponseEntity.ok(solicitudService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<SolicitudAdopcion> create(
-            @RequestParam Integer idMascota,
+    public ResponseEntity<SolicitudResponseDTO> create(
             @RequestParam Integer idUsuario,
-            @RequestBody SolicitudAdopcion solicitud) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(solicitudAdopcionService.create(idMascota, idUsuario, solicitud));
+            @RequestBody SolicitudRequestDTO dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(solicitudService.create(idUsuario, dto));
     }
 
     @PatchMapping("/{id}/estado")
-    public ResponseEntity<SolicitudAdopcion> cambiarEstado(
+    public ResponseEntity<SolicitudResponseDTO> cambiarEstado(
             @PathVariable Integer id,
             @RequestParam SolicitudAdopcion.EstadoSolicitud estado) {
-        return ResponseEntity.ok(solicitudAdopcionService.cambiarEstado(id, estado));
+        return ResponseEntity.ok(solicitudService.cambiarEstado(id, estado));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        solicitudAdopcionService.delete(id);
+        solicitudService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

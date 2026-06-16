@@ -41,6 +41,8 @@ public class Usuario {
     @Column(nullable = false)
     private LocalDateTime fechaRegistro;
 
+    private String foto;
+
     @PrePersist
     protected void onCreate() {
         if (fechaRegistro == null) fechaRegistro = LocalDateTime.now();

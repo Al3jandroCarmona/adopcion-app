@@ -25,4 +25,6 @@ public interface MascotaRepository extends JpaRepository<Mascota, Integer> {
     // ✅ Conteo de disponibles por tipo (para la vista principal)
     @Query("SELECT COUNT(m) FROM Mascota m WHERE m.tipoMascota.idTipoMascota = :idTipo AND m.estadoAdopcion = 'Disponible' AND m.activo = true")
     long countDisponiblesByTipo(@Param("idTipo") Integer idTipo);
+
+    List<Mascota> findByUsuarioDonador_IdUsuarioAndActivoTrue(Integer idUsuario);
 }

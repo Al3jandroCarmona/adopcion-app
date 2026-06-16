@@ -28,6 +28,21 @@ public class SolicitudAdopcion {
     @Column(columnDefinition = "TEXT")
     private String mensaje;
 
+    @Column(length = 50)
+    private String tipoVivienda;
+
+    @Column(nullable = false)
+    private Boolean tieneNinos = false;
+
+    @Column(nullable = false)
+    private Boolean tieneMascotas = false;
+
+    @Column(length = 255)
+    private String experienciaPrevia;
+
+    @Column(columnDefinition = "TEXT")
+    private String motivacion;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EstadoSolicitud estadoSolicitud = EstadoSolicitud.Pendiente;

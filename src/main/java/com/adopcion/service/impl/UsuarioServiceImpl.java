@@ -1,5 +1,6 @@
 package com.adopcion.service.impl;
 
+import com.adopcion.dto.PerfilUpdateDTO;
 import com.adopcion.exception.ResourceNotFoundException;
 import com.adopcion.model.Usuario;
 import com.adopcion.repository.UsuarioRepository;
@@ -51,5 +52,16 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuario = findById(id);
         usuario.setActivo(false);
         usuarioRepository.save(usuario);
+    }
+
+    @Override
+    public Usuario actualizarPerfil(Integer id, PerfilUpdateDTO dto) {
+        Usuario u = findById(id);
+        if (dto.getNombre()          != null) u.setNombre(dto.getNombre());
+        if (dto.getApellidoPaterno() != null) u.setApellidoPaterno(dto.getApellidoPaterno());
+        if (dto.getApellidoMaterno() != null) u.setApellidoMaterno(dto.getApellidoMaterno());
+        if (dto.getTelefono()        != null) u.setTelefono(dto.getTelefono());
+        if (dto.getFoto()            != null) u.setFoto(dto.getFoto());
+        return usuarioRepository.save(u);
     }
 }

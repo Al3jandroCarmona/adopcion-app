@@ -6,10 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import com.adopcion.dto.PerfilUpdateDTO;
 
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
+
+
+    @PatchMapping("/{id}/perfil")
+    public ResponseEntity<Usuario> actualizarPerfil(
+            @PathVariable Integer id,
+            @RequestBody PerfilUpdateDTO dto) {
+        return ResponseEntity.ok(usuarioService.actualizarPerfil(id, dto));
+    }
 
     @Autowired
     private UsuarioService usuarioService;
