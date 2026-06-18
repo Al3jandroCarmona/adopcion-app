@@ -95,6 +95,14 @@ public class MascotaServiceImpl implements MascotaService {
         mascotaRepository.save(mascota);
     }
 
+    @Override
+    public List<MascotaListDTO> findByDonador(Integer idDonador) {
+        return mascotaRepository.findByUsuarioDonador_IdUsuarioAndActivoTrue(idDonador)
+                .stream()
+                .map(this::toListDTO)
+                .collect(Collectors.toList());
+    }
+
     private MascotaListDTO toListDTO(Mascota m) {
         // Buscar imagen principal
         String urlFoto = null;
@@ -108,6 +116,7 @@ public class MascotaServiceImpl implements MascotaService {
 
         return MascotaListDTO.builder()
                 .idMascota(m.getIdMascota())
+                .idUsuarioDonador(m.getUsuarioDonador().getIdUsuario())
                 .nombre(m.getNombre())
                 .raza(m.getRaza())
                 .sexo(m.getSexo() != null ? m.getSexo().name() : null)

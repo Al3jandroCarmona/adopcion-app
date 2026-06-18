@@ -74,4 +74,9 @@ public class MascotaController {
         mascotaService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/donador/{idDonador}")
+    public ResponseEntity<List<MascotaListDTO>> getByDonador(@PathVariable Integer idDonador) {
+        return ResponseEntity.ok(mascotaService.findByDonador(idDonador));
+    }
 }

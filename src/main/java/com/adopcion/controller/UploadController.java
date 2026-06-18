@@ -19,7 +19,7 @@ public class UploadController {
     private String uploadDir;
 
     // URL base del servidor — configurable
-    @Value("${server.url:http://192.168.1.124:8181}")
+    @Value("${server.url:http://192.168.1.100:8181}")
     private String serverUrl;
 
     @PostMapping

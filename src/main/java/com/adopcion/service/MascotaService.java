@@ -14,4 +14,7 @@ public interface MascotaService {
     Mascota            createFromDTO(Integer idDonador, MascotaRequestDTO dto);
     Mascota            update(Integer id, Integer idTipo, Mascota data);
     void               delete(Integer id);
+
+    List<MascotaListDTO> findByDonador(Integer idDonador);
+
 }

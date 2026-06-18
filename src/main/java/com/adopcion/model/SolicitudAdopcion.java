@@ -44,6 +44,7 @@ public class SolicitudAdopcion {
     private String motivacion;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     @Column(nullable = false)
     private EstadoSolicitud estadoSolicitud = EstadoSolicitud.Pendiente;
 

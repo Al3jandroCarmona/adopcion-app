@@ -59,6 +59,11 @@ public class SolicitudAdopcionServiceImpl implements SolicitudAdopcionService {
         Usuario usuario = usuarioRepo.findById(idUsuario)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", idUsuario));
 
+        // ← NUEVO: impedir auto-solicitud
+        if (mascota.getUsuarioDonador().getIdUsuario().equals(idUsuario)) {
+            throw new IllegalArgumentException("No puedes solicitar la adopción de tu propia mascota");
+        }
+
         SolicitudAdopcion s = SolicitudAdopcion.builder()
                 .mascota(mascota)
                 .usuarioSolicitante(usuario)
